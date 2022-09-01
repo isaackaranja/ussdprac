@@ -36,19 +36,32 @@ class MenuScreen < BaseScreen
   end
 
   def handle_input(user_input)
-    if self.class.menu_options.keys.include? user_input
-      next_screen = self.class.menu_options['user_input']
-    end
-    self.class.next_screen.to_s
+    self.class.menu_options[user_input]
+  end
+end
+
+
+class EndScreen < BaseScreen
+
+  def responed
+    "END #{super}"
   end
 end
 
 class MenuInputScreen < MenuScreen
 
-  @menu_options = {}
+  @next_screen = ""
 
   class << self
     attr_reader :response, :next_screen, :menu_options
+  end
+
+  def handle_input(user_input)
+    if not self.class.menu_options.include? user_input
+      @next_screen
+    else
+      super(user_input)
+    end  
   end
 
   # def handle_input(ussd_input)

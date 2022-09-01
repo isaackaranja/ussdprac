@@ -10,14 +10,17 @@ class UssdController < ActionController::API
     phone_number  = params.dig("phoneNumber")
     my_session    = Session.find_or_create_by(sessionId: session_id)
 
+    initial_screen = false
     if !my_session.next.nil?
-      screen          = my_session.next 
+      screen          = my_session.next
     else
       screen          = "EnterName"
+      initial_screen = true
     end
-    text = text.split('*')
-    next_screen     = screen.constantize.new.handle_input(text.last)
-    response        = screen.constantize.new.responed
+    text = text.split('*')                  
+    next_screen     = screen.constantize.new.handle_input(text.last)  if ! initial_screen
+    next_screen = screen if initial_screen
+    response        = next_screen.constantize.new.responed
     my_session.next = next_screen
     my_session.save
     render plain: response          

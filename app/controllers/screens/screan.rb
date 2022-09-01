@@ -33,70 +33,19 @@ class Product < InputScreen
 
 end
 
-class ProductUnit < InputScreen
+class ProductUnit < MenuInputScreen
 
   @response     = "CON 1. Enter product unit \n 0. Go back"
   @next_screen  = 'Unit'
-  # @menu_options = {
-  #   '0' => Product.to_s
-  # }
-  # def response
-  #   response = "CON 1. Enter product unit \n 0. Go back"
-  # end
-
-  # def handle_input(user_input)
-  #   if user_input == '0'
-  #     next_screen = Product.to_s
-  #   else
-  #     next_screen = Unit.to_s
-  #   end
-  #   next_screen
-  # end
-end
-
-class ProductMenu < MenuInputScreen
-  @next_screen  = 'Unit'
   @menu_options = {
-    '0' => Product.to_s
+    '0' => Product.to_s,
+    '1' => Age.to_s
   }
 end
 
-# class ProductBackFoward < BackFowardScreen
-#   @response = ''
-#   @next_screen = 'unknown screen'
-#   def handle_input(user_input)
-#     if user_input == '0'
-#       @next_screen = Product.to_s
-#     else
-#       @next_screen = 'Unit'
-#     end
-#     @next_screen
-#   end
 
-#   def responed
-#     @next_screen.new.response
-#   end
-# end
-
-class Unit
-
-  def responed
-    response = "END Product successfully created \n Thank you"
-  end
-
-  def handle_input(user_input)
-    'DoneEnd'.to_s
-  end
-
-end
-
-class  DoneEnd
-  def response
-    response = "Thank you"
-  end
-  def handle_input(user_input)
-    
-  end
+class Unit < EndScreen
+  response = "Product successfully created \n Thank you"
 end
 
 
